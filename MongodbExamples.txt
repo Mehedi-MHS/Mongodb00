@@ -1,0 +1,180 @@
+----------------EXAMPLES-----------------------------------------
+#insertOne:
+>db.posts.insertOne({
+  title: "Post Title 1",
+  body: "Body of post.",
+  category: "News",
+  likes: 1,
+  tags: ["news", "events"],
+  date: Date()
+})
+
+#find():
+>db.posts.find()
+result:
+[
+  {
+    _id: ObjectId("64a958ed5284053f793d4d5c"),
+    title: 'Title of the post',
+    body: 'Body of the post',
+    category: 'News',
+    likes: 1,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 18:39:09 GMT+0600 (Bangladesh Standard Time)'
+  }
+]
+
+#insertMany():
+> db.posts.insertMany([  
+  {
+    title: "Post Title 2",
+    body: "Body of post.",
+    category: "Event",
+    likes: 2,
+    tags: ["news", "events"],
+    date: Date()
+  },
+  {
+    title: "Post Title 3",
+    body: "Body of post.",
+    category: "Technology",
+    likes: 3,
+    tags: ["news", "events"],
+    date: Date()
+  },
+  {
+    title: "Post Title 4",
+    body: "Body of post.",
+    category: "Event",
+    likes: 4,
+    tags: ["news", "events"],
+    date: Date()
+  }
+])
+
+
+# find again all the results
+> db.posts.find()
+result:
+[
+  {
+    _id: ObjectId("64a958ed5284053f793d4d5c"),
+    title: 'Title of the post',
+    body: 'Body of the post',
+    category: 'News',
+    likes: 1,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 18:39:09 GMT+0600 (Bangladesh Standard Time)'
+  },
+  {
+    _id: ObjectId("64a962e95284053f793d4d5d"),
+    title: 'Post Title 2',
+    body: 'Body of post',
+    category: 'Event',
+    likes: 2,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 19:21:45 GMT+0600 (Bangladesh Standard Time)'
+  },
+  {
+    _id: ObjectId("64a962e95284053f793d4d5e"),
+    title: 'Post Title 3',
+    body: 'Body of post',
+    category: 'Technology',
+    likes: 3,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 19:21:45 GMT+0600 (Bangladesh Standard Time)'
+  },
+  {
+    _id: ObjectId("64a962e95284053f793d4d5f"),
+    title: 'Post Title 4',
+    body: 'Body of post',
+    category: 'Event',
+    likes: 4,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 19:21:45 GMT+0600 (Bangladesh Standard Time)'
+  }
+]
+
+#findOne()
+>db.posts.findOne()
+result:
+{
+  _id: ObjectId("64a958ed5284053f793d4d5c"),
+  title: 'Title of the post',
+  body: 'Body of the post',
+  category: 'News',
+  likes: 1,
+  tags: [ 'news', 'events' ],
+  date: 'Sat Jul 08 2023 18:39:09 GMT+0600 (Bangladesh Standard Time)'
+}
+
+#find specific data: find({key:value})
+>db.posts.find({category:"News"})
+result: [
+  {
+    _id: ObjectId("64a958ed5284053f793d4d5c"),
+    title: 'Title of the post',
+    body: 'Body of the post',
+    category: 'News',
+    likes: 1,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 18:39:09 GMT+0600 (Bangladesh Standard Time)'
+  }
+]
+
+
+#Projection parameter in find()
+>db.posts.find({},{title:1,date:1})
+result:
+[
+  {
+    _id: ObjectId("64a958ed5284053f793d4d5c"),
+    title: 'Title of the post',
+    date: 'Sat Jul 08 2023 18:39:09 GMT+0600 (Bangladesh Standard Time)'
+  },
+  {
+    _id: ObjectId("64a962e95284053f793d4d5d"),
+    title: 'Post Title 2',
+    date: 'Sat Jul 08 2023 19:21:45 GMT+0600 (Bangladesh Standard Time)'
+  },
+  {
+    _id: ObjectId("64a962e95284053f793d4d5e"),
+    title: 'Post Title 3',
+    date: 'Sat Jul 08 2023 19:21:45 GMT+0600 (Bangladesh Standard Time)'
+  },
+  {
+    _id: ObjectId("64a962e95284053f793d4d5f"),
+    title: 'Post Title 4',
+    date: 'Sat Jul 08 2023 19:21:45 GMT+0600 (Bangladesh Standard Time)'
+  }
+]
+
+#ProjectionParameter in findOne():
+ >db.posts.findOne({},{title:1,date:1})
+result:
+{
+  _id: ObjectId("64a958ed5284053f793d4d5c"),
+  title: 'Title of the post',
+  date: 'Sat Jul 08 2023 18:39:09 GMT+0600 (Bangladesh Standard Time)'
+}
+
+#ProjectionParameter in findOne() to exclude fields:
+>db.posts.findOne({},{tags:0,date:0})
+results:
+{
+  _id: ObjectId("64a958ed5284053f793d4d5c"),
+  title: 'Title of the post',
+  body: 'Body of the post',
+  category: 'News',
+  likes: 1
+}
+
+#specific search with projectionParameter:
+>db.posts.find({likes:3},{title:1,category:1})
+results: [
+  {
+    _id: ObjectId("64a962e95284053f793d4d5e"),
+    title: 'Post Title 3',
+    category: 'Technology'
+  }
+]
