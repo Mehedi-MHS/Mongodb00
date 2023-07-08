@@ -1,0 +1,151 @@
+#Switch Database: 
+>use dbName (in terminal)
+
+#Collection is like table in sql db
+
+#2 ways to create collection.
+i) db.createCollection("collectionName")
+ii) db.collectionName.insertOne(Object)
+- collection will automatically be created during insert process. Empty collections are actually not created in mongodb.
+
+=========INSERT=========
+#2 ways to insert a document in mongodb:
+i) insertOne(Object) // inserts single object
+ii) insertMany([arry of objects]) // inserts array of objects
+
+
+
+======FIND=============
+#2 ways to find data:
+i) find() // accepts a query object, if left empty, all documents will be returned.
+ii)findOne() //returns only one result.
+* to query specific Data, use query parameter inside find({key:value}) or findOne({key:value}) .
+
+-------------------NOTES-----------------------------
+* If you try to insert documents into a collection that does not exist, MongoDB will create the collection automatically.
+
+
+
+----------------EXAMPLES-----------------------------------------
+#insertOne:
+>db.posts.insertOne({
+  title: "Post Title 1",
+  body: "Body of post.",
+  category: "News",
+  likes: 1,
+  tags: ["news", "events"],
+  date: Date()
+})
+
+#find():
+>db.posts.find()
+result:
+[
+  {
+    _id: ObjectId("64a958ed5284053f793d4d5c"),
+    title: 'Title of the post',
+    body: 'Body of the post',
+    category: 'News',
+    likes: 1,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 18:39:09 GMT+0600 (Bangladesh Standard Time)'
+  }
+]
+
+#insertMany():
+> db.posts.insertMany([  
+  {
+    title: "Post Title 2",
+    body: "Body of post.",
+    category: "Event",
+    likes: 2,
+    tags: ["news", "events"],
+    date: Date()
+  },
+  {
+    title: "Post Title 3",
+    body: "Body of post.",
+    category: "Technology",
+    likes: 3,
+    tags: ["news", "events"],
+    date: Date()
+  },
+  {
+    title: "Post Title 4",
+    body: "Body of post.",
+    category: "Event",
+    likes: 4,
+    tags: ["news", "events"],
+    date: Date()
+  }
+])
+
+
+# find again all the results
+> db.posts.find()
+result:
+[
+  {
+    _id: ObjectId("64a958ed5284053f793d4d5c"),
+    title: 'Title of the post',
+    body: 'Body of the post',
+    category: 'News',
+    likes: 1,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 18:39:09 GMT+0600 (Bangladesh Standard Time)'
+  },
+  {
+    _id: ObjectId("64a962e95284053f793d4d5d"),
+    title: 'Post Title 2',
+    body: 'Body of post',
+    category: 'Event',
+    likes: 2,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 19:21:45 GMT+0600 (Bangladesh Standard Time)'
+  },
+  {
+    _id: ObjectId("64a962e95284053f793d4d5e"),
+    title: 'Post Title 3',
+    body: 'Body of post',
+    category: 'Technology',
+    likes: 3,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 19:21:45 GMT+0600 (Bangladesh Standard Time)'
+  },
+  {
+    _id: ObjectId("64a962e95284053f793d4d5f"),
+    title: 'Post Title 4',
+    body: 'Body of post',
+    category: 'Event',
+    likes: 4,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 19:21:45 GMT+0600 (Bangladesh Standard Time)'
+  }
+]
+
+#findOne()
+>db.posts.findOne()
+result:
+{
+  _id: ObjectId("64a958ed5284053f793d4d5c"),
+  title: 'Title of the post',
+  body: 'Body of the post',
+  category: 'News',
+  likes: 1,
+  tags: [ 'news', 'events' ],
+  date: 'Sat Jul 08 2023 18:39:09 GMT+0600 (Bangladesh Standard Time)'
+}
+
+#find specific data: find({key:value})
+>db.posts.find({category:"News"})
+result: [
+  {
+    _id: ObjectId("64a958ed5284053f793d4d5c"),
+    title: 'Title of the post',
+    body: 'Body of the post',
+    category: 'News',
+    likes: 1,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 18:39:09 GMT+0600 (Bangladesh Standard Time)'
+  }
+]
