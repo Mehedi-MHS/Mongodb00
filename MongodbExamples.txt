@@ -178,3 +178,93 @@ results: [
     category: 'Technology'
   }
 ]
+
+#updateOne(). First we will see the previous value then increase its like value by 1
+>db.posts.find({title:"Post Title 2"})
+result: [
+  {
+    _id: ObjectId("64a962e95284053f793d4d5d"),
+    title: 'Post Title 2',
+    body: 'Body of post',
+    category: 'Event',
+    likes: 2,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 19:21:45 GMT+0600 (Bangladesh Standard Time)'
+  }
+]
+
+>db.posts.updateOne({title:"Post Title 2"},{$set:{likes:3}})
+
+>db.posts.find({title:"Post Title 2"})
+results: [
+  {
+    _id: ObjectId("64a962e95284053f793d4d5d"),
+    title: 'Post Title 2',
+    body: 'Body of post',
+    category: 'Event',
+    likes: 3,
+    tags: [ 'news', 'events' ],
+    date: 'Sat Jul 08 2023 19:21:45 GMT+0600 (Bangladesh Standard Time)'
+  }
+]
+
+
+
+
+#updateOne() with 'upsert' option. Notice that we don't have any object with title:"Post Title 5". So we can't update it. If we use 'upsert' option, this object will be created.
+> db.posts.updateOne({title:"Post Title 5"},{$set:{likes:5}}) //nothing happened. As there is no object with this title.
+
+> db.posts.updateOne({title:"Post Title 5"},{$set: { title:"Post Title 5",body:"Body of post", category:"Event",likes:5, tags:['news','events'],date:Date()}},{upsert:true})
+result:
+{
+  acknowledged: true,
+  insertedId: ObjectId("64aa3fde66f2b134bb7b9907"),
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 1
+}
+// Now if we find data with likes:5, we will see the inserted data.
+> db.posts.findOne({likes:5})
+result:
+{
+  _id: ObjectId("64aa3fde66f2b134bb7b9907"),
+  title: 'Post Title 5',
+  body: 'Body of post',
+  category: 'Event',
+  date: 'Sun Jul 09 2023 11:04:30 GMT+0600 (Bangladesh Standard Time)',
+  likes: 5,
+  tags: [ 'news', 'events' ]
+}
+
+#updateMany() //we will increment all the likes by 1. using $inc(increment operator)
+> db.posts.updateMany({},{$inc:{likes:1}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+// title:"Post Title 5" had 5 likes, now we will check if its likes had increased or not
+> db.posts.findOne({title:"Post Title 5"})
+result:
+{
+  _id: ObjectId("64aa3fde66f2b134bb7b9907"),
+  title: 'Post Title 5',
+  body: 'Body of post',
+  category: 'Event',
+  date: 'Sun Jul 09 2023 11:04:30 GMT+0600 (Bangladesh Standard Time)',
+  likes: 6, //increased by 1
+  tags: [ 'news', 'events' ]
+}
+
+
+
+
+
+
+
+
+
+
+

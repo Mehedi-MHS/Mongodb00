@@ -23,8 +23,15 @@ ii)findOne() //returns only one result.
 * Projection: Both find methods accept a second parameter(optional) called projection. It is an object that describes which fields to include in the results.
               If this field omitted, all fields will be included in the results.
 	      eg: db.posts.find({valueToFind..},{projectionKey:1 or 0,..}) // all the projectionKeys must be either 0 or 1, if 0, only these field will be excluded and for 1, only these fields will be included.
+              exception: can use 0 for _id field (auto generated) and 1 with other values. eg: db.posts.find({},{_id:0,title:1,date:1})
 
 
+========= UPDATE =========
+#2 ways to update data:
+i)updateOne({keyValueToSelectSpecificObject},{$specialKeyword:{newKeyValueToUpdate}) //updates only one (first matched result) document.
+ii)updateMany(...same as above) // will update all documents that match the provided query.
+*Special keyword like: $set (to set value), $inc (increment)
+*)upsert // If you would like to insert the document if it is not found, you can use the upsert option.
 
 
 -------------------NOTES-----------------------------
