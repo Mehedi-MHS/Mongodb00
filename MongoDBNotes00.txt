@@ -47,6 +47,10 @@ i)$addToSet: add distinct(পৃথক/স্পষ্ট)  elements to an array
 
 
 ============ Aggregation ===================
+>> db.collectionName.aggregate([...])
+
+*Remember that the order of your stages matters. Each stage only acts upon the documents that previous stages provide.
+
 #Definition from ChatGPT:
 Imagine you have a bunch of documents in a collection, each representing a person with their name, age, and city. 
 Aggregation allows you to answer questions like:
@@ -61,6 +65,35 @@ For example, to find the average age of all people, you would use the following 
     $avg: This stage calculates the average age based on the grouped documents.
 
 By combining these stages, you can manipulate and transform your data in a flexible and efficient way
+# My definition: Aggregation is used to run operation (like: sum,average etc.) on a whole collection.
+
+# Aggregation $group: 
+This aggregation stage groups documents by the unique _id expression provided.
+
+(Don't confuse this _id expression with the _id ObjectId provided to each document.)
+
+# Aggregation $project:
+Same as $project in find() method. Just add either 0 or 1 as value to exclude or include fields in result.exception: you can 
+use 0 for _id: field and 1 with others field to exclude _id.
+
+# Aggregation $sort:
+This aggregation stage groups sorts all documents in the specified sort order.
+>> sort order values: 1 ( for ascending order) and -1 (for descending order)
+
+# Aggregation $match:
+This aggregation stage behaves like a find. It will filter documents that match query provided.
+*) Using $match early in the pipeline (পাইপলাইনের প্রথম দিকে এটি ব্যবহার করলে) can improve performance since it limits the number of documents the next stages must process. 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
