@@ -34,6 +34,36 @@ ii)updateMany(...same as above) // will update all documents that match the prov
 *)upsert // If you would like to insert the document if it is not found, you can use the upsert option.
 
 
+
+========== DELETE ==============
+i)deleteOne() //deletes first matched object
+ii) deleteMany() //deletes all the matched object
+
+
+============ ARRAY ==================
+i)$addToSet: add distinct(পৃথক/স্পষ্ট)  elements to an array.
+
+
+
+
+============ Aggregation ===================
+#Definition from ChatGPT:
+Imagine you have a bunch of documents in a collection, each representing a person with their name, age, and city. 
+Aggregation allows you to answer questions like:
+    What is the average age of all the people in the collection?
+    How many people live in each city?
+    What are the most common names among all the people?
+    What is the total age of all people from a specific city?
+For example, to find the average age of all people, you would use the following aggregation stages:
+
+    $group: This stage groups the documents together, treating them as a single entity.
+    $project: This stage allows you to shape the output by specifying the fields you want to include or exclude.
+    $avg: This stage calculates the average age based on the grouped documents.
+
+By combining these stages, you can manipulate and transform your data in a flexible and efficient way
+
+
+
 -------------------NOTES-----------------------------
 * If you try to insert documents into a collection that does not exist, MongoDB will create the collection automatically.
 

@@ -259,6 +259,44 @@ result:
 }
 
 
+>>>>>>>>>>>> Delete
+#deleteOne():
+> db.posts.deleteOne({title:"Post Title 5"})
+result: { acknowledged: true, deletedCount: 1 }
+
+
+>>>>Aggregation(সমষ্টি) pipelines : (is used to run multiple queries in serial, -- my opinion)
++++++++++++ Loaded sample data from dashboard  +++++++++++++++
+#   $group:
+> db.listingsAndReviews.aggregate([{$group:{_id:"$property_type"}}])
+result:
+[
+  { _id: 'Aparthotel' },
+  { _id: 'Apartment' },
+  { _id: 'Barn' },
+  { _id: 'Bed and breakfast' },
+  { _id: 'Boat' },
+  { _id: 'Boutique hotel' },
+  { _id: 'Bungalow' },
+  { _id: 'Cabin' },
+  { _id: 'Camper/RV' },
+  { _id: 'Campsite' },
+  { _id: 'Casa particular (Cuba)' },
+  { _id: 'Castle' },
+  { _id: 'Chalet' },
+  { _id: 'Condominium' },
+  { _id: 'Cottage' },
+  { _id: 'Earth house' },
+  { _id: 'Farm stay' },
+  { _id: 'Guest suite' },
+  { _id: 'Guesthouse' },
+  { _id: 'Heritage hotel (India)' }
+]
+
+
+
+
+
 
 
 
