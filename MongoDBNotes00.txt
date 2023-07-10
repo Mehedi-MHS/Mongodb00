@@ -84,7 +84,8 @@ This aggregation stage groups sorts all documents in the specified sort order.
 This aggregation stage behaves like a find. It will filter documents that match query provided.
 *) Using $match early in the pipeline (পাইপলাইনের প্রথম দিকে এটি ব্যবহার করলে) can improve performance since it limits the number of documents the next stages must process. 
 
-
+# Aggregation $addFields:
+It is used to add a new field to document (like adding a new column in table in sql)
 
 
 
