@@ -87,6 +87,31 @@ This aggregation stage behaves like a find. It will filter documents that match 
 # Aggregation $addFields:
 It is used to add a new field to document (like adding a new column in table in sql)
 
+# Aggregation $count:
+This aggregation stage count the total amount of documents passed from the previous stage.
+
+# Aggregation $lookup:
+This aggregation stage performs a left outer join to a collection in the same database.
+There are four required fields:
+i) from : The collection to use for lookup in the same database.
+ii) localField : The field in the primary collection that can be used as a unique identifier in the 'from' collection.
+iii) foreignField : The field in the 'from' collection that can be used as a unique identifier in the primary collection.
+iv) as : The name of the new field that will contain the matching documents from the 'from' collection.
+
+>> Definition and example from ChatGPT:
+Let's assume we have two collections: orders and products. Each order document contains an productId field that references the _id field of a product in the products collection. We want to retrieve the product details for each order.
+
+Here's how you can use the $lookup operator to achieve this:
+db.orders.aggregate([ //now we are in orders collection(my comment)
+  {
+    $lookup: {
+      from: "products", // The target collection name
+      localField: "productId", // The field from the local collection (current 'orders' collection - my comment)
+      foreignField: "_id", // The field from the target collection (in this case , 'products' collection)
+      as: "productDetails" // The field name to store the joined documents
+    }
+  }
+])
 
 
 
